@@ -3,115 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Workspace RH de démonstration : parcours candidat et agents métiers.">
-  <title>Workspace RH | Agrica</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <meta name="description" content="Workspace RH de démonstration pour orchestrer les parcours talents.">
+  <title>RH · AI Workspace</title>
+  <link rel="stylesheet" href="shell.css">
+  <link rel="stylesheet" href="agent-workspace.css">
   <link rel="stylesheet" href="styles.css">
-  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
-  <script src="app.js" defer></script>
 </head>
 <body>
-  <div class="app-shell">
-    <aside class="sidebar">
-      <a class="brand" href="#top" aria-label="Accueil Workspace RH">
-        <span class="brand-mark">R</span>
-        <span>
-          <strong>Workspace RH</strong>
-          <small>Agrica</small>
-        </span>
-      </a>
+  <div class="login-overlay" id="login-overlay">
+    <div class="login-bg-shapes"><div class="login-shape login-shape-1"></div><div class="login-shape login-shape-2"></div><div class="login-shape login-shape-3"></div></div>
+    <div class="login-card">
+      <div class="login-logo"><div class="rh-logo rh-logo--large">RH</div><div class="login-brand"><span class="login-brand-name">RH · AI Workspace</span><span class="login-brand-sub">Espace de démonstration</span></div></div>
+      <h1 class="login-title">Bienvenue</h1>
+      <p class="login-subtitle">Accédez à votre espace de travail RH</p>
+      <form class="login-form" id="login-form">
+        <div class="login-field"><label class="login-label" for="login-username">Identifiant</label><div class="login-input-wrapper"><span class="login-input-icon">@</span><input type="text" id="login-username" placeholder="Votre identifiant" autocomplete="username" value="marie.laurent"></div></div>
+        <div class="login-field"><label class="login-label" for="login-password">Mot de passe</label><div class="login-input-wrapper"><span class="login-input-icon">*</span><input type="password" id="login-password" placeholder="Votre mot de passe" autocomplete="current-password" value="demo"></div></div>
+        <button type="submit" class="login-submit"><span>Accéder à la démo</span><span aria-hidden="true">→</span></button>
+      </form>
+      <div class="login-footer">Données et profils fictifs pour démonstration</div>
+    </div>
+  </div>
 
-      <nav class="side-nav" aria-label="Navigation principale">
-        <button class="side-link is-active" type="button" data-view="overview">
-          <i data-lucide="layout-dashboard"></i><span>Vue d'ensemble</span>
-        </button>
-        <button class="side-link" type="button" data-view="agents">
-          <i data-lucide="bot"></i><span>Agents RH</span>
-        </button>
-        <button class="side-link" type="button" data-view="talent">
-          <i data-lucide="users-round"></i><span>Viviers talents</span>
-        </button>
+  <div class="app-shell" id="app-shell" style="display:none">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header"><button class="logo-mark" id="logo-home" type="button" data-view="home"><span class="rh-logo">RH</span><span class="logo-text"><span class="logo-title">RH · Workspace</span><span class="logo-subtitle">Talents &amp; parcours</span></span></button></div>
+      <nav class="sidebar-nav" id="sidebar-nav" aria-label="Navigation principale">
+        <button class="sidebar-item active" type="button" data-view="home"><span class="sidebar-icon">⌂</span><span class="sidebar-label">Accueil</span></button>
+        <button class="sidebar-item" type="button" data-view="projects"><span class="sidebar-icon">□</span><span class="sidebar-label">Projets</span></button>
+        <button class="sidebar-item" type="button" data-view="catalog"><span class="sidebar-icon">✦</span><span class="sidebar-label">Agents</span></button>
+        <button class="sidebar-item" type="button" data-view="workflows"><span class="sidebar-icon">↝</span><span class="sidebar-label">Workflows</span></button>
+        <div class="sidebar-section-label">Pilotage RH</div>
+        <button class="sidebar-item sidebar-sub" type="button" data-view="dashboards"><span class="sidebar-icon">▦</span><span class="sidebar-label">Dashboards</span></button>
+        <button class="sidebar-item sidebar-sub" type="button" data-view="alertes"><span class="sidebar-icon">!</span><span class="sidebar-label">Alertes</span></button>
+        <div class="sidebar-section-label sidebar-section-label--mt">Assistant</div>
+        <button class="mt-sidebar-cta" id="assistant-toggle" type="button"><span class="mt-sidebar-cta-inner"><span class="mt-sidebar-avatar">AI</span><span class="mt-sidebar-name">RH Copilot</span></span></button>
+        <button class="sidebar-item sidebar-sub" type="button" data-view="conversations"><span class="sidebar-icon">◌</span><span class="sidebar-label">Historique</span></button>
       </nav>
-
-      <section class="sidebar-cycle" aria-label="Cycle RH en cours">
-        <span class="eyebrow">Cycle en cours</span>
-        <strong>Recrutement T4</strong>
-        <p>12 postes ouverts<br>31 candidatures qualifiées</p>
-        <span class="status-dot"><i></i>Synchronisé</span>
-      </section>
-
-      <button class="profile" type="button" title="Compte utilisateur">
-        <span class="avatar">ML</span>
-        <span><strong>Marie Laurent</strong><small>Responsable RH</small></span>
-        <i data-lucide="more-horizontal"></i>
-      </button>
+      <div class="sidebar-footer"><span class="status-dot"></span>Environnement démo</div>
     </aside>
 
-    <main id="top" class="main-content">
-      <header class="topbar">
-        <div>
-          <span class="eyebrow">Pilotage recrutement</span>
-          <h1>Bonjour, Marie</h1>
+    <div class="main-content" id="main-content">
+      <main class="view view-home active" id="view-home">
+        <div class="home-topbar"><div class="topbar-right"><button class="user-btn" type="button"><span class="user-avatar">ML</span><span class="user-info"><span class="user-name">Marie Laurent</span><span class="user-role">Responsable RH</span></span></button></div></div>
+        <div class="home-wrap">
+          <section class="home-hero"><div class="home-hero-glow"></div><div class="home-hero-left"><span class="home-hero-eyebrow">Direction des ressources humaines</span><h1 class="home-hero-title">Bonjour Marie</h1><p class="home-hero-text">Pilotez vos recrutements, parcours collaborateurs et décisions talent depuis un espace de travail unifié.</p><div class="home-hero-actions"><button class="home-hero-btn home-hero-btn--primary" type="button" id="hero-copilot">Parler au RH Copilot</button><button class="home-hero-btn" type="button" data-view="workflows">Voir les workflows</button></div></div><div class="home-hero-stats" id="home-hero-stats"></div></section>
+          <section class="home-section"><h2 class="home-section-title">Explorer l'espace RH</h2><p class="home-section-sub">Les parcours actifs et leurs agents dédiés.</p><div class="home-cards" id="home-explore-cards"></div></section>
+          <section class="home-section"><h2 class="home-section-title">À suivre aujourd'hui</h2><p class="home-section-sub">Décisions et signaux à traiter dans les parcours talents.</p><div class="home-cards" id="home-news-cards"></div></section>
         </div>
-        <div class="topbar-actions">
-          <button class="icon-button" type="button" title="Notifications" aria-label="Notifications">
-            <i data-lucide="bell"></i><span class="notification-dot"></span>
-          </button>
-          <button class="new-request" type="button" id="new-request">
-            <i data-lucide="plus"></i>Nouvelle demande
-          </button>
-        </div>
-      </header>
+      </main>
 
-      <section class="overview" id="overview-view">
-        <div class="section-heading">
-          <div>
-            <span class="eyebrow">Parcours opérationnel</span>
-            <h2>Les agents à l'oeuvre</h2>
-          </div>
-          <span class="updated-at"><i data-lucide="refresh-cw"></i>Mis à jour à l'instant</span>
-        </div>
+      <main class="view view-catalog" id="view-catalog">
+        <div class="content-topbar"><div class="topbar-left"><h1 class="page-title">Catalogue d'agents</h1><div class="topbar-workspace-row"><span class="ws-label">Espace ·</span><strong>Ressources humaines</strong></div></div><div class="topbar-center"><label class="search-box"><span>⌕</span><input type="search" id="agent-search" placeholder="Rechercher un agent..."></label></div><div class="topbar-right"><button class="btn-create-agent" id="create-agent" type="button">＋ Créer un agent</button><button class="user-btn" type="button"><span class="user-avatar">ML</span><span class="user-info"><span class="user-name">Marie Laurent</span><span class="user-role">Responsable RH</span></span></button></div></div>
+        <section class="category-filters" id="category-filters"></section><section class="agents-grid-section"><div class="agents-grid" id="agents-grid"></div></section>
+      </main>
 
-        <div class="workflow-rail" id="workflow-rail" aria-label="Étapes du workflow RH"></div>
+      <main class="view view-workflows" id="view-workflows">
+        <div class="content-topbar"><div class="topbar-left"><h1 class="page-title">Workflows</h1><p class="page-subtitle">Parcours RH coordonnés par les agents du workspace</p></div><div class="topbar-right"><button class="btn-primary" type="button" id="new-workflow">＋ Nouveau workflow</button></div></div>
+        <div class="workflow-templates" id="workflow-templates"></div><div class="workflow-canvas-wrapper"><div class="workflow-canvas-header" id="workflow-canvas-header"></div><div class="workflow-canvas" id="workflow-canvas"></div></div>
+      </main>
 
-        <div class="metrics-grid" aria-label="Indicateurs RH">
-          <article class="metric-card metric-card--blue">
-            <span>Postes ouverts</span><strong>12</strong><small><i data-lucide="trending-up"></i> +3 ce mois</small>
-          </article>
-          <article class="metric-card metric-card--coral">
-            <span>Candidatures à traiter</span><strong>48</strong><small><i data-lucide="clock-3"></i> 9 priorités</small>
-          </article>
-          <article class="metric-card metric-card--green">
-            <span>Onboardings actifs</span><strong>7</strong><small><i data-lucide="check-circle-2"></i> 82% complétés</small>
-          </article>
-          <article class="metric-card metric-card--amber">
-            <span>Entretiens planifiés</span><strong>16</strong><small><i data-lucide="calendar-days"></i> Cette semaine</small>
-          </article>
-        </div>
+      <main class="view view-projects" id="view-projects"><div class="content-topbar"><div class="topbar-left"><h1 class="page-title">Projets</h1><p class="page-subtitle">Regroupez postes, campagnes et parcours collaborateurs</p></div><div class="topbar-right"><button class="btn-primary" type="button" id="new-project">＋ Nouveau projet</button></div></div><div class="projects-grid rh-projects-grid" id="projects-grid"></div></main>
 
-        <section class="workspace-panel" id="agent-panel" aria-live="polite"></section>
+      <main class="view view-dashboards" id="view-dashboards"><div class="content-topbar"><div class="topbar-left"><h1 class="page-title">Dashboards</h1><p class="page-subtitle">Indicateurs de recrutement, mobilité et expérience collaborateur</p></div><div class="topbar-right"><button class="btn-primary" type="button" data-toast="Le tableau de bord RH est prêt à être configuré.">＋ Nouveau dashboard</button></div></div><div class="pilotage-content rh-dashboard-grid" id="dashboards-grid"></div></main>
 
-        <section class="lower-grid">
-          <article class="activity-panel">
-            <div class="panel-heading"><div><span class="eyebrow">Aujourd'hui</span><h3>Activité récente</h3></div><button class="text-button" type="button">Tout voir <i data-lucide="arrow-up-right"></i></button></div>
-            <div class="activity-list" id="activity-list"></div>
-          </article>
-          <article class="priority-panel">
-            <div class="panel-heading"><div><span class="eyebrow">À suivre</span><h3>Priorités RH</h3></div><i data-lucide="sparkles"></i></div>
-            <ul class="priority-list">
-              <li><span class="priority-icon priority-icon--coral"><i data-lucide="user-round-x"></i></span><span><strong>2 retours manager attendus</strong><small>Entretiens finalisés</small></span><button class="icon-button small" type="button" title="Ouvrir"><i data-lucide="arrow-right"></i></button></li>
-              <li><span class="priority-icon priority-icon--blue"><i data-lucide="file-warning"></i></span><span><strong>3 pièces administratives manquantes</strong><small>Onboardings de septembre</small></span><button class="icon-button small" type="button" title="Ouvrir"><i data-lucide="arrow-right"></i></button></li>
-              <li><span class="priority-icon priority-icon--green"><i data-lucide="badge-check"></i></span><span><strong>Shortlist Data validée</strong><small>4 profils retenus</small></span><button class="icon-button small" type="button" title="Ouvrir"><i data-lucide="arrow-right"></i></button></li>
-            </ul>
-          </article>
-        </section>
-      </section>
+      <main class="view view-alertes" id="view-alertes"><div class="content-topbar"><div class="topbar-left"><h1 class="page-title">Alertes</h1><p class="page-subtitle">Signaux qui demandent une décision ou une relance</p></div><div class="topbar-right"><button class="btn-primary" type="button" data-toast="Nouvelle règle d'alerte à configurer.">＋ Nouvelle alerte</button></div></div><div class="pilotage-content rh-alert-list" id="alertes-list"></div></main>
 
-      <section class="secondary-view" id="secondary-view" hidden></section>
-    </main>
+      <main class="view view-conversations" id="view-conversations"><div class="content-topbar"><div class="topbar-left"><h1 class="page-title">Historique des conversations</h1><p class="page-subtitle">Vos échanges avec le RH Copilot</p></div><div class="topbar-right"><button class="btn-primary" type="button" id="new-chat">＋ Nouveau chat</button></div></div><div class="pilotage-content rh-conversation-list" id="conversations-list"></div></main>
+    </div>
+
+    <main class="view" id="view-agent-workspace"><div id="agent-workspace-root"></div></main>
   </div>
+
+  <aside class="ai-panel" id="ai-panel" aria-label="RH Copilot"><div class="ai-panel-header"><div class="ai-panel-title-row"><span class="ai-panel-avatar">AI</span><span><strong class="ai-panel-name">RH Copilot</strong><small class="ai-panel-workspace">Espace Ressources humaines</small></span></div><button class="ai-panel-close" type="button" id="assistant-close" aria-label="Fermer">×</button></div><div class="ai-panel-messages" id="ai-messages"></div><form class="ai-panel-input-area" id="ai-form"><div class="ai-input-wrapper"><input type="text" id="ai-input" placeholder="Posez une question..." autocomplete="off"><button class="ai-send-btn" type="submit" aria-label="Envoyer">↑</button></div></form></aside>
+
+  <div class="modal-overlay" id="agent-modal"><div class="modal-backdrop" data-close-modal></div><div class="modal-container"><button class="modal-close" type="button" data-close-modal aria-label="Fermer">×</button><div class="modal-content" id="modal-content"></div></div></div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
 </body>
 </html>
