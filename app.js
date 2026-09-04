@@ -79,7 +79,20 @@ function closeModal() { byId('agent-modal').classList.remove('open'); }
 
 function boot() {
   renderHome(); renderCatalog(); renderWorkflows(); renderProjects(); renderDashboards(); renderAlerts(); renderConversations();
-  byId('login-form').addEventListener('submit', event => { event.preventDefault(); byId('login-overlay').style.display = 'none'; byId('app-shell').style.display = 'flex'; });
+  byId('login-form').addEventListener('submit', event => {
+    event.preventDefault();
+    const username = byId('login-username').value.trim();
+    const password = byId('login-password').value;
+    const error = byId('login-error');
+    if (username !== 'RH' || password !== 'Agentic') {
+      error.classList.add('is-visible');
+      byId('login-password').focus();
+      return;
+    }
+    error.classList.remove('is-visible');
+    byId('login-overlay').style.display = 'none';
+    byId('app-shell').style.display = 'flex';
+  });
   document.addEventListener('click', event => {
     const agentButton = event.target.closest('[data-agent]'); if (agentButton) { openAgent(agentButton.dataset.agent); return; }
     const viewButton = event.target.closest('[data-view]'); if (viewButton) { showView(viewButton.dataset.view); return; }

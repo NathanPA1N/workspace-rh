@@ -8,7 +8,12 @@ POC statique d'un workspace RH centré sur un parcours de recrutement et cinq ag
 4. Agent Matching Profils
 5. Agent Job evaluation
 
-Les données affichées sont fictives. L'application ne contient ni données personnelles réelles, ni authentification, ni appel à une API métier.
+Les données affichées sont fictives. L'application ne contient ni données personnelles réelles, ni appel à une API métier. La connexion de démonstration est une vérification côté navigateur et ne constitue pas une authentification de production.
+
+## Accès à la démo
+
+- Identifiant : `RH`
+- Mot de passe : `Agentic`
 
 ## Lancer localement
 
